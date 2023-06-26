@@ -1,2 +1,1 @@
-# StickyTasks-forntend
-first try project
+# StickyTasks

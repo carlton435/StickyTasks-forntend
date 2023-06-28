@@ -1,25 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react'
+import Header from './components/Header/index'
+import SignIn from './components/Body/login.jsx'
+import SignUp from './components/Body/signup.jsx'
+import Footer from './components/footer/index'
+import "./App.css"
 
-function App() {
+export default function App() {
+  const [isShow, setIsShow] = useState(true)
+  function showPage(e) {
+    setIsShow(e)
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Header isShow={isShow} />
+      {isShow ? <SignIn showPage={showPage} /> : <SignUp showPage={showPage} />}
+      <Footer />
     </div>
-  );
+  )
 }
-
-export default App;

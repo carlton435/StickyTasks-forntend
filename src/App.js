@@ -1,20 +1,21 @@
-import React, { useState } from 'react'
-import Header from './components/Header/index'
+import React, { } from 'react'
+import { Routes, Route } from 'react-router-dom';
+import "./App.css"
 import SignIn from './components/Body/login.jsx'
 import SignUp from './components/Body/signup.jsx'
-import Footer from './components/footer/index'
-import "./App.css"
-
+import Home from './components/Body/home.jsx'
+import Article from './components/Body/article.jsx'
 export default function App() {
-  const [isShow, setIsShow] = useState(true)
-  function showPage(e) {
-    setIsShow(e)
-  }
+
   return (
     <div>
-      <Header isShow={isShow} />
-      {isShow ? <SignIn showPage={showPage} /> : <SignUp showPage={showPage} />}
-      <Footer />
+      <Routes>
+        <Route path="/" element={<SignIn />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/home/article" element={<Article />} />
+      </Routes>
+      {/* {isShow ? <SignIn showPage={showPage} /> : <SignUp showPage={showPage} />} */}
     </div>
   )
 }

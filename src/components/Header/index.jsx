@@ -2,7 +2,7 @@ import React from 'react'
 import './index.css'
 
 export default function SignIn(props) {
-    const { isShow } = props
+    const { titleName } = props
 
     return (
         <div >
@@ -16,7 +16,7 @@ export default function SignIn(props) {
                 {/* 头部右部分 */}
                 <div className='header-right'>
                     <h3 className='Home-title'>Home</h3>
-                    {isShow ? <h3>Login</h3> : <h3>Sign Up</h3>}
+                    <h3>{titleName}</h3>
                 </div>
             </div>
 

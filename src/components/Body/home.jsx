@@ -11,16 +11,16 @@ export default function Home() {
     const titleRef = useRef();
     const bodyRef = useRef()
     const navigate = useNavigate()
+    const fetchArticles = async () => {
+        try {
+            const username = localStorage.getItem('username')
+            const response = await axios.get(`http://127.0.0.1:3001/api/getarticle?username=${username}`);
+            setArticles(response.data);
+        } catch (error) {
+            console.log(error);
+        }
+    };
     useEffect(() => {
-        const fetchArticles = async () => {
-            try {
-                const username = localStorage.getItem('username')
-                const response = await axios.get(`http://127.0.0.1:3001/api/getarticle?username=${username}`);
-                setArticles(response.data);
-            } catch (error) {
-                console.log(error);
-            }
-        };
 
         fetchArticles();
     }, []);
@@ -43,6 +43,20 @@ export default function Home() {
         // if status = false  click can updata
 
         if (!status) {
+            const title = titleRef.current.value
+            const body = bodyRef.current.value
+            let url = `http://127.0.0.1:3001/api/changearticle?title=${title}&body=${body}&id=${id}`
+
+            const updateArticle = async () => {
+                try {
+                    const result = await axios.post(url);
+                    console.log(result.data);
+                    fetchArticles(); // 重新获取文章数据
+                } catch (error) {
+                    console.log(error);
+                }
+            };
+            updateArticle()
 
         }
     }
@@ -55,8 +69,8 @@ export default function Home() {
                 {articles.data && articles.data.map((item, index) => {
                     return (
                         <div className='home-item' key={index} >
-                            {item.status ? <h3>{item.title}</h3> : <input className='change-title' type="text" />}
-                            {item.status ? <h4>{item.body}</h4> : <textarea className='change-body' name="" id="" cols="30" rows="10"></textarea>}
+                            {item.status ? <h3>{item.title}</h3> : <input ref={titleRef} className='change-title' type="text" />}
+                            {item.status ? <h4>{item.body}</h4> : <textarea ref={bodyRef} className='change-body' name="" id="" cols="30" rows="10"></textarea>}
                             <button className='delete' >delete</button>
                             <button className='change' onClick={() => changeArticle(item.tasks_id, item.status)}>{item.status ? "change" : "complete"}</button>
                         </div>

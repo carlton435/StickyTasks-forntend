@@ -16,6 +16,7 @@ export default function Login() {
         const username = inputRef1.current.value
         const password = inputRef2.current.value
         console.log(username, password);
+        localStorage.setItem('username', username);
         navigate('/home')
     }
     return (

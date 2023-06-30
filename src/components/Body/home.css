@@ -6,7 +6,8 @@
 }
 
 .home-item{
-    
+    padding: 10px;
+    position: relative;
     background-color:pink;
     /* flex-basis: 25%; */
     /* width: 300px; */
@@ -28,4 +29,32 @@
     border-radius: 50%;
     font-size: 50px;
     cursor: pointer;
+}
+
+button{
+    width: 40%;
+    height: 10%;
+    background-color: lightblue;
+    border-radius: 20px;
+    border-color: pink;
+}
+.delete{
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+}
+.change{
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+}
+.change-title{
+    width: 60%;
+    height: 10%;
+    margin: 10px 0px;
+}
+
+.change-body{
+    width: 98%;
+    height: 60%;
 }

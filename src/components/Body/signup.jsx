@@ -1,5 +1,5 @@
-import React, { useRef, useState, Fragment } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useRef, Fragment } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './signup.css';
 import Footer from '../footer/index'
@@ -9,7 +9,7 @@ export default function SignUp() {
     const usernameRef = useRef();
     const passwordRef = useRef();
     const checkRef = useRef();
-    const [passwordMismatch, setPasswordMismatch] = useState(false);
+    const navigate = useNavigate()
 
 
 
@@ -19,7 +19,7 @@ export default function SignUp() {
         const check = checkRef.current.value;
 
         if (check !== password) {
-            setPasswordMismatch(true);
+            alert("password is not match")
             return;
         }
 
@@ -32,6 +32,7 @@ export default function SignUp() {
             console.log(err);
         })
 
+        navigate('/')
 
 
     };
@@ -49,7 +50,6 @@ export default function SignUp() {
                 <span>
                     Already have an account? <Link to="/" >Sign in</Link>
                 </span>
-                {passwordMismatch && <p className="error-message">Passwords do not match</p>}
             </div>
             <Footer />
         </Fragment>

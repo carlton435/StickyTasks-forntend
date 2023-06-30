@@ -6,11 +6,12 @@ import "./home.css"
 import axios from 'axios'
 
 export default function Home() {
-    // const username = localStorage.getItem('username')
     const [articles, setArticles] = useState([]);
     const titleRef = useRef();
     const bodyRef = useRef()
     const navigate = useNavigate()
+
+    // the get data and render function
     const fetchArticles = async () => {
         try {
             const username = localStorage.getItem('username')
@@ -20,17 +21,18 @@ export default function Home() {
             console.log(error);
         }
     };
-    useEffect(() => {
 
+    // get the data first time run
+    useEffect(() => {
         fetchArticles();
     }, []);
 
-
-    // const arr = [{ name: "ccc" }, { name: 'xxx' }, { name: 'xxx' }, { name: 'xxx' }, { name: 'xxx' }, { name: 'xxx' }, { name: 'xxx' },]
+    // create the article function - change to the other page
     function createArticle() {
         navigate("/home/article")
     }
 
+    // change the article function
     function changeArticle(id, status) {
         const updatedArticles = articles.data.map((item) => {
             if (item.tasks_id === id) {
@@ -61,7 +63,18 @@ export default function Home() {
         }
     }
 
-    console.log("article is : " + articles.data);
+    // delete the article function
+    async function deleteArticle(tasks_id) {
+        let url = `http://127.0.0.1:3001/api/deletearticle?tasks_id=${tasks_id}`
+        try {
+            const result = await axios.delete(url)
+            console.log(result);
+            fetchArticles()
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     return (
         <Fragment>
             <Header titleName={"All Article"} />
@@ -71,7 +84,7 @@ export default function Home() {
                         <div className='home-item' key={index} >
                             {item.status ? <h3>{item.title}</h3> : <input ref={titleRef} className='change-title' type="text" />}
                             {item.status ? <h4>{item.body}</h4> : <textarea ref={bodyRef} className='change-body' name="" id="" cols="30" rows="10"></textarea>}
-                            <button className='delete' >delete</button>
+                            <button className='delete' onClick={() => deleteArticle(item.tasks_id)}>delete</button>
                             <button className='change' onClick={() => changeArticle(item.tasks_id, item.status)}>{item.status ? "change" : "complete"}</button>
                         </div>
                     )

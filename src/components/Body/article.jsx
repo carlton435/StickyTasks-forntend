@@ -15,6 +15,9 @@ export default function Article() {
     const bodyRef = useRef()
     function addArticle() {
         const title = titleRef.current.value
+        if (title.length > 8) {
+            return alert('the title length cannot more than 8')
+        }
         const body = bodyRef.current.value
         const username = localStorage.getItem('username')
         let url = `http://127.0.0.1:3001/api/addarticle?username=${username}&title=${title}&body=${body}`
@@ -28,6 +31,9 @@ export default function Article() {
         const { tasks_id } = id
 
         const title = titleRef.current.value
+        if (title.length > 8) {
+            return alert('the title length cannot more than 8')
+        }
         const body = bodyRef.current.value
         console.log(typeof title, title);
         console.log(typeof body, body);

@@ -28,6 +28,17 @@
     font-size: 50px;
     cursor: pointer;
 }
+.deleteArticle-icon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    bottom: 200px;
+    right: 55px;
+    width: 90px;
+    height: 90px;
+    cursor: pointer;
+}
 
 input{
     border-radius: 20px;

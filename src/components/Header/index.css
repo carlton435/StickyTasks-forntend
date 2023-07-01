@@ -17,18 +17,20 @@
     margin: 10px 10px 10px 30px;
 }
 .header-left h3{
+    background-color: black;
     justify-content: center;
     line-height: 20px;
+    color: white;
 }
 .header-right{
-    display: flex;
-    justify-content: center;
-    margin-right: 150px;
-    line-height: 20px;
+    display: flex; 
+     margin-right: 150px; 
+     line-height: 20px; 
+     margin-right: 500px;
 }
 
-.Home-title{
-    margin-right: 20px;
+.header-username h3{
+    margin-right: 750px;
 }
 
 

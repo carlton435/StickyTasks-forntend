@@ -1,8 +1,9 @@
 import React from 'react'
 import './index.css'
+import logo from '../../image/image 1.png'
 
 export default function SignIn(props) {
-    const { titleName } = props
+    const { username } = props
 
     return (
         <div >
@@ -10,13 +11,12 @@ export default function SignIn(props) {
             <div className='header'>
                 {/* 头部左部分 */}
                 <div className='header-left'>
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBWqTVt47eUdTDHNMu0_DGe0mD9scQePsFcA&usqp=CAU" alt="" />
+                    <img src={logo} alt="" />
                     <h3>StickyTasks</h3>
                 </div>
-                {/* 头部右部分 */}
-                <div className='header-right'>
-                    <h3 className='Home-title'>Home</h3>
-                    <h3>{titleName}</h3>
+                {/* 中间用户名部分 */}
+                <div className='header-username'>
+                    <h3>Welcome {username}</h3>
                 </div>
             </div>
 

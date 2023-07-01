@@ -1,15 +1,20 @@
-import React, { Fragment, useState, useEffect, useRef } from 'react'
+import React, { Fragment, useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
 import Footer from '../footer/index'
 import Header from '../Header/index'
 import "./home.css"
-import axios from 'axios'
+import img from '../../image/sticky.png'
+
 
 export default function Home() {
     const [articles, setArticles] = useState([]);
-    const titleRef = useRef();
-    const bodyRef = useRef()
+    // const titleRef = useRef();
+    // const bodyRef = useRef()
     const navigate = useNavigate()
+    const username = localStorage.getItem('username')
+    console.log(username);
+
 
     // the get data and render function
     const fetchArticles = async () => {
@@ -32,60 +37,27 @@ export default function Home() {
         navigate("/home/article")
     }
 
-    // change the article function
-    function changeArticle(id, status) {
-        const updatedArticles = articles.data.map((item) => {
-            if (item.tasks_id === id) {
-                return { ...item, status: !item.status };
-            }
-            return item
-        })
-        setArticles({ ...articles, data: updatedArticles });
 
-        // if status = false  click can updata
 
-        if (!status) {
-            const title = titleRef.current.value
-            const body = bodyRef.current.value
-            let url = `http://127.0.0.1:3001/api/changearticle?title=${title}&body=${body}&id=${id}`
-
-            const updateArticle = async () => {
-                try {
-                    const result = await axios.post(url);
-                    console.log(result.data);
-                    fetchArticles(); // 重新获取文章数据
-                } catch (error) {
-                    console.log(error);
-                }
-            };
-            updateArticle()
-
-        }
-    }
-
-    // delete the article function
-    async function deleteArticle(tasks_id) {
-        let url = `http://127.0.0.1:3001/api/deletearticle?tasks_id=${tasks_id}`
-        try {
-            const result = await axios.delete(url)
-            console.log(result);
-            fetchArticles()
-        } catch (error) {
-            console.log(error);
-        }
+    function detail(item) {
+        // console.log(title, body, tasks_id);
+        navigate("/home/article", { state: item })
     }
 
     return (
         <Fragment>
-            <Header titleName={"All Article"} />
+            <Header username={username} />
             <div className='home-body'>
                 {articles.data && articles.data.map((item, index) => {
                     return (
-                        <div className='home-item' key={index} >
-                            {item.status ? <h3>{item.title}</h3> : <input ref={titleRef} className='change-title' type="text" />}
-                            {item.status ? <h4>{item.body}</h4> : <textarea ref={bodyRef} className='change-body' name="" id="" cols="30" rows="10"></textarea>}
-                            <button className='delete' onClick={() => deleteArticle(item.tasks_id)}>delete</button>
-                            <button className='change' onClick={() => changeArticle(item.tasks_id, item.status)}>{item.status ? "change" : "complete"}</button>
+                        <div className='home-item' key={index} onClick={() => detail(item)} >
+                            <img src={img} alt="" className="sticky" />
+                            <div className='content'>
+                                {<h3 className='home-tittle-info'>{item.title}</h3>}
+                                {<h4 className='home-body-info'>{item.body}</h4>}
+                                {/* <button className='delete' onClick={() => deleteArticle(item.tasks_id)}>delete</button>
+                            <button className='change' onClick={() => changeArticle(item.tasks_id, item.status)}>{item.status ? "change" : "complete"}</button> */}
+                            </div>
                         </div>
                     )
                 })}

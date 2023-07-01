@@ -55,6 +55,13 @@ export default function Login() {
         localStorage.setItem('username', username);
         navigate('/home')
     }
+
+    const KeyDown = (event) => {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            login();
+        }
+    };
     return (
         <Fragment>
             <Header titleName={"Sign In"} />
@@ -62,9 +69,9 @@ export default function Login() {
                 {/* body部分，注册表格 */}
                 <h2>Sign in</h2>
                 <h5>To continue to use StickyTasks.</h5>
-                <input type="text" ref={inputRef1} className='input-username' placeholder='input username' />
-                <input type="password" ref={inputRef2} className='input-password' placeholder='input password' />
-                <button onClick={login}>Login</button>
+                <input type="text" ref={inputRef1} className='input-username' placeholder='input username' onKeyDown={(e) => KeyDown(e)} />
+                <input type="password" ref={inputRef2} className='input-password' placeholder='input password' onKeyDown={(e) => KeyDown(e)} />
+                <button onClick={login} >Login</button>
                 <span>No account? <Link to="/signup" >Sign up</Link></span>
             </div>
             <Footer />

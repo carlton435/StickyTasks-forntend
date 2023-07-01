@@ -34,14 +34,14 @@ export default function Home() {
 
     // create the article function - change to the other page
     function createArticle() {
-        navigate("/home/article")
+        navigate("/article")
     }
 
 
 
     function detail(item) {
         // console.log(title, body, tasks_id);
-        navigate("/home/article", { state: item })
+        navigate("/article", { state: item })
     }
 
     return (
